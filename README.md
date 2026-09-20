@@ -4,7 +4,7 @@
 
 ### Two everyday frustrations that grew into two complete browser projects.
 
-[![Live Portfolio](https://img.shields.io/badge/OPEN_LIVE_PORTFOLIO-0b6bcb?style=for-the-badge&logo=githubpages&logoColor=white)](https://kerolos-essam.github.io/ai-portfolio-projects/)
+[![Live Portfolio](https://img.shields.io/badge/OPEN_LIVE_PORTFOLIO-0b6bcb?style=for-the-badge&logo=githubpages&logoColor=white)](https://kikoesam.github.io/ai-portfolio-projects/)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=111)](https://developer.mozilla.org/docs/Web/JavaScript)
 [![Local First](https://img.shields.io/badge/LOCAL--FIRST-238636?style=for-the-badge&logo=googlechrome&logoColor=white)](#privacy-by-design)
 
@@ -19,8 +19,8 @@ making better motion graphics for my videos and understanding *C++ Primer* witho
 
 | | Project | The problem it solves | Try it |
 |---|---|---|---|
-| 🎞️ | **Pixel Motion Studio** | Turns text and ideas into interactive, export-ready motion graphics. | **[Launch the studio →](https://kerolos-essam.github.io/ai-portfolio-projects/pixel-motion-studio/)** |
-| 📖 | **Kiko PDF Translator** | Makes technical English PDFs easier to study in Arabic without losing context. | **[Open the reader →](https://kerolos-essam.github.io/ai-portfolio-projects/kiko-pdf-reader/)** |
+| 🎞️ | **Pixel Motion Studio** | Turns text and ideas into interactive, export-ready motion graphics. | **[Launch the studio →](https://kikoesam.github.io/ai-portfolio-projects/pixel-motion-studio/)** |
+| 📖 | **Kiko PDF Translator** | Makes technical English PDFs easier to study in Arabic without losing context. | **[Open the reader →](https://kikoesam.github.io/ai-portfolio-projects/kiko-pdf-reader/)** |
 
 > [!IMPORTANT]
 > This is **one portfolio repository containing two real projects**. The folders `kiko-pdf-reader/` and `pixel-motion-studio/` contain the actual applications. The older `document-reader/` and `youtube-studio/` paths are still present only as compatibility redirects to the real projects.
@@ -29,7 +29,7 @@ making better motion graphics for my videos and understanding *C++ Primer* witho
 
 ## 🎞️ Pixel Motion Studio
 
-[![Open Pixel Motion Studio](assets/pixel-motion-studio.png)](https://kerolos-essam.github.io/ai-portfolio-projects/pixel-motion-studio/)
+[![Open Pixel Motion Studio](assets/pixel-motion-studio.png)](https://kikoesam.github.io/ai-portfolio-projects/pixel-motion-studio/)
 
 ### Why I built it
 
@@ -58,7 +58,7 @@ one export-ready studio for video creation
 - A MOGRT preparation pack for continuing the workflow in Adobe tools.
 
 <p align="center">
-  <a href="https://kerolos-essam.github.io/ai-portfolio-projects/pixel-motion-studio/"><strong>▶ Launch Pixel Motion Studio</strong></a>
+  <a href="https://kikoesam.github.io/ai-portfolio-projects/pixel-motion-studio/"><strong>▶ Launch Pixel Motion Studio</strong></a>
   ·
   <a href="./pixel-motion-studio/"><strong>Browse its source</strong></a>
 </p>
@@ -78,7 +78,7 @@ one export-ready studio for video creation
 
 ## 📖 Kiko PDF Translator
 
-[![Open Kiko PDF Translator](assets/kiko-pdf-translator.png)](https://kerolos-essam.github.io/ai-portfolio-projects/kiko-pdf-reader/)
+[![Open Kiko PDF Translator](assets/kiko-pdf-translator.png)](https://kikoesam.github.io/ai-portfolio-projects/kiko-pdf-reader/)
 
 ### Why I built it
 
@@ -104,7 +104,7 @@ review vocabulary ← answer a quick quiz ← connect the C++ concept
 - Continuous PDF scrolling, exact search, zoom, rotation, annotations, undo/redo, printing, and annotated PDF export.
 
 <p align="center">
-  <a href="https://kerolos-essam.github.io/ai-portfolio-projects/kiko-pdf-reader/"><strong>▶ Try the web version</strong></a>
+  <a href="https://kikoesam.github.io/ai-portfolio-projects/kiko-pdf-reader/"><strong>▶ Try the web version</strong></a>
   ·
   <a href="./kiko-pdf-reader/Kiko-PDF-Translator-v3.0.3.zip"><strong>Download the Chrome extension</strong></a>
   ·
@@ -167,6 +167,6 @@ ai-portfolio-projects/
 
 ### Built because I needed the tools. Kept building because the first version was not enough.
 
-[Explore both projects](https://kerolos-essam.github.io/ai-portfolio-projects/) · [Visit my GitHub profile](https://github.com/Kerolos-Essam)
+[Explore both projects](https://kikoesam.github.io/ai-portfolio-projects/) · [Visit my GitHub profile](https://github.com/Kikoesam)
 
 </div>
