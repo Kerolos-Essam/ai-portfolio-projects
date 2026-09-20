@@ -1,0 +1,22 @@
+KIKO PDF TRANSLATOR 3 - INSTALLATION
+
+1. Extract the ZIP file. Do not run the extension from inside the ZIP.
+2. Open Google Chrome and visit: chrome://extensions
+3. Enable Developer mode in the top-right corner.
+4. Click Load unpacked.
+5. Select the extracted kiko-pdf-translator folder.
+6. Open a PDF or click the Kiko PDF extension icon.
+7. Click Enable AI once if Chrome asks to download its local translation model.
+
+UPDATING
+
+Replace the files inside the existing kiko-pdf-translator folder, then click Reload on chrome://extensions. Keeping the same folder preserves a stable unpacked installation.
+
+BACKUP
+
+Open Saved words and click Backup before removing the extension or moving to another computer. Removing an extension clears its locally saved annotations, vocabulary, and settings.
+
+REQUIREMENTS
+
+- Google Chrome 151 or newer on Windows, macOS, Linux, or supported ChromeOS hardware.
+- Text-based PDF files. Scanned image-only PDFs need OCR and are not supported yet.
