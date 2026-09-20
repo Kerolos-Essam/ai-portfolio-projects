@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Kiko PDF Translator",
+  "description": "Read PDFs and translate hovered or selected English text into Arabic with Chrome's on-device Translator AI.",
+  "version": "3.0.3",
+  "minimum_chrome_version": "151",
+  "permissions": [
+    "contextMenus",
+    "storage",
+    "unlimitedStorage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "assets/icon16.png",
+    "32": "assets/icon32.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "action": {
+    "default_title": "Open a PDF in Kiko Translator",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "32": "assets/icon32.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  "options_page": "options.html",
+  "mime_types_handler": {
+    "application/pdf": {
+      "handler_url": "viewer.html",
+      "can_embed": false
+    }
+  }
+}
