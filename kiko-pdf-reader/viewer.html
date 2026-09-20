@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kiko PDF Translator</title>
+    <link rel="stylesheet" href="viewer.css">
+  </head>
+  <body>
+    <header class="toolbar main-toolbar">
+      <div class="brand"><span class="brand-mark">ك</span><strong>Kiko PDF</strong></div>
+      <button id="toggleSidebar" class="toolbar-button" type="button" title="Thumbnails" aria-label="Show page thumbnails">☰</button>
+      <label class="open-button">
+        Open PDF
+        <input id="fileInput" type="file" accept="application/pdf,.pdf">
+      </label>
+      <nav class="page-nav" aria-label="Page navigation">
+        <button id="previousPage" type="button" title="Previous page" aria-label="Previous page">‹</button>
+        <input id="pageNumber" type="number" min="1" value="1" aria-label="Page number">
+        <span id="pageCount">/ 0</span>
+        <button id="nextPage" type="button" title="Next page" aria-label="Next page">›</button>
+      </nav>
+      <div class="zoom-controls">
+        <button id="zoomOut" type="button" title="Zoom out" aria-label="Zoom out">−</button>
+        <button id="zoomLabel" class="zoom-label" type="button" title="Reset zoom to 100%" aria-label="Reset zoom to 100%">100%</button>
+        <button id="zoomIn" type="button" title="Zoom in" aria-label="Zoom in">+</button>
+      </div>
+      <button id="fitWidth" class="toolbar-button" type="button" title="Fit width" aria-label="Fit PDF to width">↔</button>
+      <button id="fitPage" class="toolbar-button" type="button" title="Fit page" aria-label="Fit whole PDF page">▣</button>
+      <button id="rotatePage" class="toolbar-button" type="button" title="Rotate clockwise" aria-label="Rotate page clockwise">↻</button>
+      <div class="search-box">
+        <input id="searchInput" type="search" placeholder="Find in PDF" aria-label="Find in PDF">
+        <button id="searchPrevious" type="button" title="Previous result" aria-label="Previous search result">↑</button>
+        <button id="searchNext" type="button" title="Next result" aria-label="Next search result">↓</button>
+        <span id="searchCount" aria-live="polite"></span>
+      </div>
+      <button id="printPdf" class="toolbar-button" type="button" title="Print annotated PDF" disabled>Print</button>
+      <button id="downloadPdf" class="toolbar-button" type="button" title="Download annotated PDF" disabled>Download</button>
+      <button id="nativeViewer" class="native-button" type="button" hidden>Chrome viewer</button>
+      <button id="openShortcuts" class="toolbar-button" type="button" title="Keyboard shortcuts" aria-label="Show keyboard shortcuts">⌨</button>
+    </header>
+
+    <section class="annotation-toolbar" aria-label="Annotation tools">
+      <button class="tool-button active" data-tool="select" type="button" title="Select text">Select</button>
+      <button class="tool-button" data-tool="pen" type="button" title="Pen">✎ Pen</button>
+      <button class="tool-button" data-tool="highlight" type="button" title="Highlighter">▰ Highlight</button>
+      <button class="tool-button" data-tool="text" type="button" title="Add text">T Text</button>
+      <button class="tool-button" data-tool="eraser" type="button" title="Eraser">⌫ Eraser</button>
+      <span class="toolbar-divider"></span>
+      <label class="compact-control">Color <input id="annotationColor" type="color" value="#ffcc33"></label>
+      <label class="compact-control">Size <input id="annotationSize" type="range" min="1" max="24" value="4"></label>
+      <span class="toolbar-divider"></span>
+      <button id="toggleAnnotations" class="tool-button" type="button" title="Hide or show annotations">◉ Annotations</button>
+      <span class="toolbar-divider"></span>
+      <div id="aiStatus" class="ai-status" aria-live="polite">AI checking…</div>
+      <label class="mode-control" title="How selected text should be explained">
+        <span>Mode</span>
+        <select id="studyMode">
+          <option value="auto">Auto</option>
+          <option value="cpp">C++</option>
+          <option value="general">General English</option>
+        </select>
+      </label>
+      <button id="enableAI" class="enable-button compact-enable" type="button" hidden>Enable AI</button>
+      <button id="openVocabulary" class="tool-button vocabulary-button" type="button" title="Saved vocabulary">▾ Saved words <span id="vocabularyBadge">0</span></button>
+      <button id="openConcepts" class="tool-button" type="button" title="Browse every C++ Primer topic" hidden>Primer concepts</button>
+      <button id="openStudyHub" class="tool-button study-button" type="button" title="Open your C++ study system" hidden>Study <span id="dailyBadge">0/11</span></button>
+      <span id="saveStatus" class="save-status" aria-live="polite">Saved locally</span>
+    </section>
+
+    <aside id="sidebar" class="sidebar" hidden>
+      <div class="sidebar-title">Pages</div>
+      <div id="thumbnailList" class="thumbnail-list"></div>
+    </aside>
+
+    <main id="viewer" class="viewer">
+      <section id="welcome" class="welcome">
+        <div class="welcome-mark">ك</div>
+        <h1>Read English. Understand it in Arabic.</h1>
+        <p>Open a PDF, then hover over a word or select a sentence.</p>
+        <div class="feature-pills"><span>Private on-device AI</span><span>Technical context</span><span>Vocabulary review</span></div>
+        <label class="hero-button">
+          Choose your PDF
+          <input type="file" accept="application/pdf,.pdf" data-file-input>
+        </label>
+        <small>No API key or account. Translation runs on your computer.</small>
+      </section>
+      <div id="loading" class="loading" hidden>Opening PDF…</div>
+      <div id="pageStack" class="page-stack" hidden></div>
+    </main>
+
+    <aside id="pageConceptPreview" class="page-concept-preview" hidden>
+      <details id="pageConceptDetails">
+        <summary>
+          <span class="preview-label">THIS PAGE TEACHES</span>
+          <span id="previewConceptCount" class="preview-count" aria-hidden="true"></span>
+        </summary>
+        <div class="preview-content">
+          <strong id="previewSection"></strong>
+          <div id="previewConcepts" class="preview-concepts"></div>
+        </div>
+      </details>
+    </aside>
+
+    <div id="textComposer" class="text-composer" hidden>
+      <textarea id="annotationText" rows="3" placeholder="Write a note…"></textarea>
+      <div><button id="cancelText" type="button">Cancel</button><button id="addText" type="button">Add</button></div>
+    </div>
+
+    <aside id="translationTooltip" class="translation-tooltip" dir="rtl" role="status" aria-live="polite" hidden>
+      <div class="tooltip-actions">
+        <button id="speakSelection" class="tooltip-action-button" type="button" title="Pronounce the English text" aria-label="Pronounce the selected English text">🔊</button>
+        <button id="addSelectedWord" class="add-word-button" type="button" hidden>+ ADD</button>
+        <button id="showCodeExample" class="tooltip-action-button" type="button" hidden>Code</button>
+      </div>
+      <div id="tooltipText">…</div>
+      <div id="termNotes" class="term-notes"></div>
+      <div id="tooltipSource" class="tooltip-source" dir="ltr"></div>
+    </aside>
+
+    <section id="vocabularyDrawer" class="vocabulary-drawer" hidden>
+      <header class="vocabulary-header">
+        <div><strong>Saved vocabulary</strong><span id="vocabularyCount">0 words</span></div>
+        <div class="vocabulary-actions">
+          <button id="reviewVocabulary" type="button">Review</button>
+          <button id="exportVocabulary" type="button">Export CSV</button>
+          <button id="backupVocabulary" type="button">Backup</button>
+          <label class="vocabulary-file-button">Import<input id="importVocabulary" type="file" accept="application/json,.json"></label>
+          <button id="closeVocabulary" type="button">Close</button>
+        </div>
+      </header>
+      <div class="vocabulary-filter"><input id="vocabularySearch" type="search" placeholder="Search saved English or Arabic words…"></div>
+      <div id="vocabularyList" class="vocabulary-list"></div>
+    </section>
+
+    <section id="conceptDrawer" class="concept-drawer" hidden>
+      <header class="concept-header">
+        <div><strong>C++ Primer concepts</strong><span>Preface · Chapters 1–19 · every numbered subsection</span></div>
+        <button id="closeConcepts" type="button">Close</button>
+      </header>
+      <div class="concept-filter"><input id="conceptSearch" type="search" placeholder="Search 2.4.1, references to const, templates…"></div>
+      <div id="conceptCount" class="concept-count"></div>
+      <div id="conceptList" class="concept-list"></div>
+    </section>
+
+    <section id="studyDrawer" class="study-drawer" hidden>
+      <header class="study-header">
+        <div><strong>Primer Study System</strong><span id="studyDailyProgress">Today: 0 of 11 pages</span></div>
+        <button id="closeStudyHub" type="button">Close</button>
+      </header>
+      <div class="study-scroll">
+        <section class="study-card manual-progress-card">
+          <div class="study-card-heading"><strong>Manual reading progress</strong><span>Nothing is counted automatically</span></div>
+          <label>Pages finished today <input id="manualPagesToday" type="number" min="0" max="99" value="0"></label>
+          <label>Last finished Primer page <input id="manualFinishedPage" type="number" min="1" max="864" placeholder="Example: 76"></label>
+          <div class="manual-progress-actions">
+            <button id="useVisiblePage" type="button">Use visible book page</button>
+            <button id="saveManualProgress" class="primary-study-action" type="button">Save progress</button>
+          </div>
+        </section>
+        <section class="study-card current-study-card">
+          <div class="study-eyebrow">CURRENT SECTION</div>
+          <h2 id="studySectionTitle">Open C++ Primer to begin</h2>
+          <button id="completeSection" class="primary-study-action" type="button" disabled>Mark section complete</button>
+        </section>
+        <section id="studyResultCard" class="study-card" hidden>
+          <div class="study-card-heading"><strong id="studyResultTitle">Explanation</strong><span id="studyResultStatus"></span></div>
+          <div id="studyResultEnglish" class="study-result-english"></div>
+          <div id="studyResultArabic" class="study-result-arabic" dir="rtl"></div>
+          <pre id="studyCode" class="study-code" hidden></pre>
+        </section>
+        <section class="study-card">
+          <div class="study-card-heading"><strong>Concept connections</strong></div>
+          <div id="conceptConnections" class="concept-connections">Select a concept to see how it connects.</div>
+          <a id="connectionReference" class="cppreference-link" href="https://en.cppreference.com/w/cpp" target="_blank" rel="noreferrer">Read the cppreference article ↗</a>
+        </section>
+        <section id="quizCard" class="study-card" hidden>
+          <div class="study-card-heading"><strong>Quick quiz</strong><span>Answer without looking</span></div>
+          <ol id="quizQuestions" class="quiz-questions"></ol>
+          <button id="revealQuizAnswers" class="reveal-quiz-answers" type="button">Reveal answers</button>
+          <ol id="quizAnswers" class="quiz-answers" hidden></ol>
+        </section>
+      </div>
+    </section>
+
+    <dialog id="vocabularyEditor" class="app-dialog">
+      <form method="dialog" id="vocabularyEditorForm">
+        <header><strong>Edit saved vocabulary</strong><button id="closeVocabularyEditor" type="button" aria-label="Close">×</button></header>
+        <label>English<input id="editVocabularyEnglish" required></label>
+        <label>Arabic meaning<textarea id="editVocabularyArabic" rows="3" dir="rtl" required></textarea></label>
+        <label>Helpful context<textarea id="editVocabularyContext" rows="3"></textarea></label>
+        <footer><button id="cancelVocabularyEdit" type="button">Cancel</button><button id="saveVocabularyEdit" type="submit" value="default">Save changes</button></footer>
+      </form>
+    </dialog>
+
+    <dialog id="reviewDialog" class="app-dialog review-dialog">
+      <section>
+        <header><div><strong>Vocabulary review</strong><span id="reviewProgress"></span></div><button id="closeReview" type="button" aria-label="Close">×</button></header>
+        <div id="reviewEmpty" class="review-empty" hidden>Nothing is due. Great work.</div>
+        <div id="reviewCard" class="review-card" hidden>
+          <button id="reviewSpeak" class="review-speak" type="button">🔊 Pronounce</button>
+          <div id="reviewEnglish" class="review-english"></div>
+          <button id="revealReview" class="reveal-review" type="button">Reveal meaning</button>
+          <div id="reviewAnswer" class="review-answer" hidden>
+            <div id="reviewArabic" dir="rtl"></div>
+            <div id="reviewContext"></div>
+            <div class="review-grades">
+              <button data-grade="again" type="button">Again</button>
+              <button data-grade="good" type="button">Good</button>
+              <button data-grade="easy" type="button">Easy</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </dialog>
+
+    <dialog id="shortcutsDialog" class="app-dialog shortcuts-dialog">
+      <section>
+        <header><strong>Keyboard shortcuts</strong><button id="closeShortcuts" type="button" aria-label="Close">×</button></header>
+        <div class="shortcut-grid">
+          <span>Undo annotation</span><kbd>Ctrl Z</kbd>
+          <span>Redo annotation</span><kbd>Ctrl Shift Z</kbd>
+          <span>Find in PDF</span><kbd>Ctrl F</kbd>
+          <span>Download annotated PDF</span><kbd>Ctrl S</kbd>
+          <span>Print</span><kbd>Ctrl P</kbd>
+          <span>Close popups</span><kbd>Esc</kbd>
+        </div>
+      </section>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <script src="platform.js"></script>
+    <script type="module" src="viewer-continuous.js"></script>
+  </body>
+</html>
