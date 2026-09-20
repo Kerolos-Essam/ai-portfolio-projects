@@ -2,41 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>AI-Powered YouTube Studio</title>
-  <style>
-    :root{--ink:#172126;--accent:#2e6f7f;--muted:#6b787e;--line:#dce5e8;--bg:#eef3f4}
-    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
-    header{background:#fff;border-bottom:1px solid var(--line);padding:22px 28px}.tag{color:var(--accent);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}h1{font:700 26px/1.2 Georgia,serif;margin:2px 0 0}
-    main{max-width:1120px;margin:24px auto;padding:0 20px;display:grid;grid-template-columns:370px 1fr;gap:20px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 26px #20343d10;padding:18px}
-    label{display:block;font-weight:750;margin:0 0 6px}input,textarea,select{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font:inherit;margin:0 0 15px}textarea{resize:vertical;min-height:150px}
-    button{border:0;border-radius:9px;padding:11px 15px;background:var(--accent);color:#fff;font-weight:800;cursor:pointer}.secondary{background:#e9f2f4;color:var(--accent)}
-    .top-actions{display:flex;gap:8px;flex-wrap:wrap}.output{padding:14px 0;border-bottom:1px solid var(--line)}.output:last-child{border:0}.output h2{font:700 17px/1.25 Georgia,serif;margin:0 0 8px}.result{white-space:pre-wrap;background:#f7fafb;border-left:4px solid var(--accent);padding:12px;border-radius:6px;min-height:46px}.muted{color:var(--muted);font-size:12px}
-    @media(max-width:820px){main{grid-template-columns:1fr}}
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="0; url=../pixel-motion-studio/">
+  <title>Moved to Pixel Motion Studio</title>
 </head>
 <body>
-  <header><div class="tag">Portfolio Project</div><h1>AI-Powered YouTube Studio</h1></header>
-  <main>
-    <section class="card">
-      <label for="topic">Video topic</label><input id="topic" placeholder="e.g. Understanding pointers in modern C++">
-      <label for="audience">Audience</label><select id="audience"><option>Beginner developers</option><option>Engineering students</option><option>Technical professionals</option></select>
-      <label for="notes">Study notes or source material</label><textarea id="notes" placeholder="Paste rough notes, lessons learned, examples, and the main takeaway…"></textarea>
-      <div class="top-actions"><button id="generate">Generate content pack</button><button id="export" class="secondary">Export text</button></div>
-      <p class="muted">A human-in-the-loop workspace for turning technical notes into a structured publishing draft.</p>
-    </section>
-    <section class="card" id="pack">
-      <div class="output"><h2>Title ideas</h2><div id="titles" class="result">Add a topic and notes, then generate.</div></div>
-      <div class="output"><h2>Video outline</h2><div id="outline" class="result"></div></div>
-      <div class="output"><h2>Description</h2><div id="description" class="result"></div></div>
-      <div class="output"><h2>Short summary and keywords</h2><div id="summary" class="result"></div></div>
-      <div class="output"><h2>Review checklist</h2><div class="result">□ Verify every technical claim\n□ Replace generic examples with tested code\n□ Add chapters and source links\n□ Review the title and thumbnail together\n□ Confirm that the final video matches the learning objective</div></div>
-    </section>
-  </main>
-  <script>
-    const $=id=>document.getElementById(id); const clean=s=>s.trim().replace(/\s+/g,' ');
-    function generate(){const topic=clean($('topic').value)||'Your technical topic',aud=$('audience').value,notes=clean($('notes').value);const takeaway=(notes.match(/[^.!?]+[.!?]?/)||['A practical walkthrough with tested examples.'])[0].trim();$('titles').textContent=[`Learn ${topic}: A Practical Beginner Guide`,`${topic} Explained with Real Examples`,`What I Wish I Knew Before Learning ${topic}`].map((x,i)=>`${i+1}. ${x}`).join('\n');$('outline').textContent=`1. The problem and why it matters\n2. Core idea in plain language\n3. Step-by-step example\n4. Common mistakes and debugging notes\n5. Final recap and next practice task`; $('description').textContent=`In this video, I break down ${topic} for ${aud.toLowerCase()}. The walkthrough turns study notes into a practical explanation, highlights common mistakes, and ends with a clear next step.\n\nMain takeaway: ${takeaway}\n\nSubscribe for the ongoing software-engineering learning journey.`;$('summary').textContent=`Summary: A concise, example-driven introduction to ${topic}.\n\nKeywords: ${topic}, software engineering, technical learning, tutorial, beginner guide`;}
-    $('generate').onclick=generate;$('export').onclick=()=>{const parts=['AI-Powered YouTube Studio',...['titles','outline','description','summary'].map(id=>`${id.toUpperCase()}\n${$(id).textContent}`)];const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([parts.join('\n\n')],{type:'text/plain'}));a.download='youtube-content-pack.txt';a.click();URL.revokeObjectURL(a.href);};
-  </script>
+  <p>This project moved to <a href="../pixel-motion-studio/">Pixel Motion Studio</a>.</p>
 </body>
 </html>
