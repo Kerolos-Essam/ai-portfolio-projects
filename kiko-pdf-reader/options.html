@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kiko PDF Settings</title>
+    <style>
+      :root { color-scheme: dark; font-family: Inter, system-ui, sans-serif; background: #171920; color: #f7f8fb; }
+      body { display: grid; min-height: 100vh; margin: 0; place-items: center; background: radial-gradient(circle at 20% 0, #292547, transparent 38%), #171920; }
+      main { width: min(560px, calc(100vw - 32px)); padding: 28px; border: 1px solid #353b47; border-radius: 18px; background: #20232b; box-shadow: 0 24px 80px #0008; }
+      h1 { margin: 0 0 8px; font-size: 26px; } p { color: #aeb5c1; line-height: 1.6; }
+      label { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 24px; padding: 16px; border: 1px solid #3a404c; border-radius: 12px; background: #181b22; }
+      input { width: 20px; height: 20px; accent-color: #ffd84d; }
+      small { display: block; margin-top: 16px; color: #788191; }
+      #status { color: #9ee5b2; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Kiko PDF settings</h1>
+      <p>Choose whether PDFs opened in Chrome should enter Kiko PDF automatically. You can still open the reader from its extension icon.</p>
+      <label><span><strong>Open PDFs in Kiko PDF</strong><small>Disable this to keep Chrome's original viewer as the default.</small></span><input id="handlePdfs" type="checkbox"></label>
+      <p id="status"></p>
+    </main>
+    <script src="options.js"></script>
+  </body>
+</html>
